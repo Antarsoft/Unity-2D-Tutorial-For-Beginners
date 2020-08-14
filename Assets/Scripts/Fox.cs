@@ -15,6 +15,8 @@ public class Fox : MonoBehaviour
     const float overheadCheckRadius = 0.2f;
     [SerializeField] float speed = 2;
     [SerializeField] float jumpPower =500;
+    [SerializeField] int totalJumps;
+    int availableJumps;
     float horizontalValue;
     float runSpeedModifier = 2f;
     float crouchSpeedModifier = 0.5f;
@@ -22,11 +24,14 @@ public class Fox : MonoBehaviour
     [SerializeField] bool isGrounded;    
     bool isRunning;
     bool facingRight = true;
-    bool jump;
     bool crouchPressed;
+    bool multipleJump;
+    bool coyoteJump;
 
     void Awake()
     {
+        availableJumps = totalJumps;
+
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -45,15 +50,7 @@ public class Fox : MonoBehaviour
 
         //If we press Jump button enable jump 
         if (Input.GetButtonDown("Jump"))
-        {            
-            jump = true;
-            animator.SetBool("Jump", true);
-        }            
-
-        //Otherwise disable it
-        else if (Input.GetButtonUp("Jump"))
-            jump = false;
-
+            Jump();
 
         //If we press Crouch button enable crouch 
         if (Input.GetButtonDown("Crouch"))
@@ -69,28 +66,78 @@ public class Fox : MonoBehaviour
     void FixedUpdate()
     {
         GroundCheck();
-        Move(horizontalValue, jump, crouchPressed);        
+        Move(horizontalValue, crouchPressed);        
     } 
 
     void GroundCheck()
     {
+        bool wasGrounded = isGrounded;
         isGrounded = false;
         //Check if the GroundCheckObject is colliding with other
         //2D Colliders that are in the "Ground" Layer
         //If yes (isGrounded true) else (isGrounded false)
         Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheckCollider.position, groundCheckRadius, groundLayer);
         if (colliders.Length > 0)
+        {
             isGrounded = true;
+            if (!wasGrounded)
+            {
+                availableJumps = totalJumps;
+                multipleJump = false;
+            }                
+        }    
+        else
+        {
+            if (wasGrounded)
+                StartCoroutine(CoyoteJumpDelay());
+        }
 
         //As long as we are grounded the "Jump" bool
         //in the animator is disabled
         animator.SetBool("Jump", !isGrounded);
     }
 
-
-    void Move(float dir,bool jumpFlag,bool crouchFlag)
+    IEnumerator CoyoteJumpDelay()
     {
-        #region Jump & Crouch
+        coyoteJump = true;
+        yield return new WaitForSeconds(0.2f);
+        coyoteJump = false;
+    }
+
+    void Jump()
+    {
+        if (isGrounded)
+        {
+            multipleJump = true;
+            availableJumps--;
+
+            rb.velocity = Vector2.up * jumpPower;
+            animator.SetBool("Jump", true);
+        }
+        else
+        {
+            if(coyoteJump)
+            {
+                multipleJump = true;
+                availableJumps--;
+
+                rb.velocity = Vector2.up * jumpPower;
+                animator.SetBool("Jump", true);
+            }
+
+            if(multipleJump && availableJumps>0)
+            {
+                availableJumps--;
+
+                rb.velocity = Vector2.up * jumpPower;
+                animator.SetBool("Jump", true);
+            }
+        }
+    }
+
+    void Move(float dir,bool crouchFlag)
+    {
+        #region Crouch
 
         //If we are crouching and disabled crouching
         //Check overhead for collision with Ground items
@@ -102,24 +149,8 @@ public class Fox : MonoBehaviour
         }
 
         animator.SetBool("Crouch", crouchFlag);
+        standingCollider.enabled = !crouchFlag;
 
-        //If we press Crouch we disable the standing collider + animate crouching
-        //Reduce the speed 
-        //if released resume the original speed + 
-        //enable the standing collider + disable crouch animation
-        if (isGrounded)
-        {
-            standingCollider.enabled = !crouchFlag;
-
-            //If the player is grounded and pressed space Jump
-            if (jumpFlag)
-            {
-                jumpFlag = false;
-                //Add jump force
-                rb.AddForce(new Vector2(0f, jumpPower));
-            }
-            
-        }                
         #endregion
 
         #region Move & Run
