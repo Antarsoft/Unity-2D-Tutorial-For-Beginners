@@ -20,8 +20,8 @@ public class Fox : MonoBehaviour
     float horizontalValue;
     float runSpeedModifier = 2f;
     float crouchSpeedModifier = 0.5f;
-
-    [SerializeField] bool isGrounded;    
+    
+    bool isGrounded;    
     bool isRunning;
     bool facingRight = true;
     bool crouchPressed;
@@ -67,7 +67,15 @@ public class Fox : MonoBehaviour
     {
         GroundCheck();
         Move(horizontalValue, crouchPressed);        
-    } 
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(groundCheckCollider.position, groundCheckRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(overheadCheckCollider.position, overheadCheckRadius);
+    }
 
     void GroundCheck()
     {
@@ -97,6 +105,7 @@ public class Fox : MonoBehaviour
         animator.SetBool("Jump", !isGrounded);
     }
 
+    #region Jump
     IEnumerator CoyoteJumpDelay()
     {
         coyoteJump = true;
@@ -134,6 +143,7 @@ public class Fox : MonoBehaviour
             }
         }
     }
+    #endregion
 
     void Move(float dir,bool crouchFlag)
     {
@@ -186,4 +196,6 @@ public class Fox : MonoBehaviour
         animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
         #endregion
     }
+
+    
 }

@@ -5816,7 +5816,6 @@ MonoBehaviour:
   speed: 2
   jumpPower: 10
   totalJumps: 2
-  isGrounded: 0
 --- !u!95 &1932231521
 Animator:
   serializedVersion: 3
