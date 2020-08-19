@@ -10,6 +10,8 @@ public class InteractionSystem : MonoBehaviour
     private const float detectionRadius = 0.2f;
     //Detection Layer
     public LayerMask detectionLayer;
+    //Cached Trigger Object
+    public GameObject detectedObject;
 
     void Update()
     {
@@ -17,7 +19,7 @@ public class InteractionSystem : MonoBehaviour
         {
             if(InteractInput())
             {
-                Debug.Log("INTERACT");
+                detectedObject.GetComponent<Item>().Interact();
             }
         }
     }
@@ -28,8 +30,19 @@ public class InteractionSystem : MonoBehaviour
     }
 
     bool DetectObject()
-    {
-        return Physics2D.OverlapCircle(detectionPoint.position,detectionRadius,detectionLayer);        
+    {        
+        Collider2D obj = Physics2D.OverlapCircle(detectionPoint.position,detectionRadius,detectionLayer); 
+        
+        if(obj==null)
+        {
+            detectedObject = null;
+            return false;
+        }
+        else
+        {
+            detectedObject = obj.gameObject;
+            return true;
+        }
     }
 
     private void OnDrawGizmosSelected()
