@@ -7,6 +7,8 @@ public class Item : MonoBehaviour
 {
     public enum InteractionType { NONE,PickUp,Examine}
     public InteractionType type;
+    [Header("Exmaine")]
+    public string descriptionText;
 
     private void Reset()
     {
@@ -25,7 +27,8 @@ public class Item : MonoBehaviour
                 gameObject.SetActive(false);
                 break;
             case InteractionType.Examine:
-                Debug.Log("EXAMINE");
+                //Call the Examine item in the interaction system
+                FindObjectOfType<InteractionSystem>().ExamineItem(this);                
                 break;
             default:
                 Debug.Log("NULL ITEM");

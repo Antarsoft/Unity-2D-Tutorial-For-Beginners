@@ -37,7 +37,10 @@ public class Fox : MonoBehaviour
     }
 
     void Update()
-    {        
+    {
+        if (CanMove()==false)
+            return;
+
         //Store the horizontal value
         horizontalValue = Input.GetAxisRaw("Horizontal");
 
@@ -75,6 +78,16 @@ public class Fox : MonoBehaviour
         Gizmos.DrawSphere(groundCheckCollider.position, groundCheckRadius);
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(overheadCheckCollider.position, overheadCheckRadius);
+    }
+
+    bool CanMove()
+    {
+        bool can = true;
+
+        if (FindObjectOfType<InteractionSystem>().isExamining)
+            can = false;
+
+        return can;
     }
 
     void GroundCheck()
