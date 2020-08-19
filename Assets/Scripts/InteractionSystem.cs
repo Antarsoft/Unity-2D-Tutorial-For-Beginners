@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InteractionSystem : MonoBehaviour
 {
+    [Header("Detection Parameters")]
     //Detection Point
     public Transform detectionPoint;
     //Detection Radius
@@ -12,6 +13,9 @@ public class InteractionSystem : MonoBehaviour
     public LayerMask detectionLayer;
     //Cached Trigger Object
     public GameObject detectedObject;
+    [Header("Others")]
+    //List of picked items
+    public List<GameObject> pickedItems= new List<GameObject>();
 
     void Update()
     {
@@ -22,6 +26,12 @@ public class InteractionSystem : MonoBehaviour
                 detectedObject.GetComponent<Item>().Interact();
             }
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
     }
 
     bool InteractInput()
@@ -45,9 +55,8 @@ public class InteractionSystem : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    public void PickUpItem(GameObject item)
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(detectionPoint.position, detectionRadius);
+        pickedItems.Add(item);
     }
 }

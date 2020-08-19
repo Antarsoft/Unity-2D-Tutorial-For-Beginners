@@ -380,7 +380,7 @@ GameObject:
   - component: {fileID: 79127228}
   - component: {fileID: 79127227}
   m_Layer: 10
-  m_Name: PickupItem
+  m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -640,7 +640,7 @@ GameObject:
   - component: {fileID: 137886496}
   - component: {fileID: 137886495}
   m_Layer: 10
-  m_Name: New Sprite
+  m_Name: Bush
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9341333cef9e0f1468fc5c184b152e81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 1
 --- !u!61 &137886496
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6145,6 +6145,8 @@ MonoBehaviour:
   detectionLayer:
     serializedVersion: 2
     m_Bits: 1024
+  detectedObject: {fileID: 0}
+  pickedItems: []
 --- !u!1 &1956587676
 GameObject:
   m_ObjectHideFlags: 0
