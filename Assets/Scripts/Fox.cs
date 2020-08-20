@@ -86,6 +86,8 @@ public class Fox : MonoBehaviour
 
         if (FindObjectOfType<InteractionSystem>().isExamining)
             can = false;
+        if (FindObjectOfType<InventorySystem>().isOpen)
+            can = false;
 
         return can;
     }

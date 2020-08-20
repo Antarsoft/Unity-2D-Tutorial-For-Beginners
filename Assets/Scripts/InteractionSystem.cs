@@ -20,9 +20,6 @@ public class InteractionSystem : MonoBehaviour
     public Image examineImage;
     public Text examineText;
     public bool isExamining;
-    [Header("Others")]
-    //List of picked items
-    public List<GameObject> pickedItems= new List<GameObject>();
 
     void Update()
     {
@@ -60,11 +57,6 @@ public class InteractionSystem : MonoBehaviour
             detectedObject = obj.gameObject;
             return true;
         }
-    }
-
-    public void PickUpItem(GameObject item)
-    {
-        pickedItems.Add(item);
     }
 
     public void ExamineItem(Item item)
