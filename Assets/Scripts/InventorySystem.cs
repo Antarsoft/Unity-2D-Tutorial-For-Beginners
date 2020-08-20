@@ -18,6 +18,7 @@ public class InventorySystem : MonoBehaviour
     public GameObject ui_Description_Window;
     public Image description_Image;
     public Text description_Title;
+    public Text description_Text;
 
 
     private void Update()
@@ -32,6 +33,8 @@ public class InventorySystem : MonoBehaviour
     {
         isOpen = !isOpen;
         ui_Window.SetActive(isOpen);
+
+        Update_UI();
     }
 
     //Add the item to the items list
@@ -55,22 +58,47 @@ public class InventorySystem : MonoBehaviour
     }
 
     //Hide all the items ui images
-    void HideAll() { foreach (var i in items_images) { i.gameObject.SetActive(false); } }
+    void HideAll() 
+    { 
+        foreach (var i in items_images) { i.gameObject.SetActive(false); }
+
+        HideDescription();
+    }
     
     public void ShowDescription(int id)
     {
         //Set the Image
         description_Image.sprite = items_images[id].sprite;
-        //Set the Text
+        //Set the Title
         description_Title.text = items[id].name;
+        //Show the description
+        description_Text.text = items[id].GetComponent<Item>().descriptionText;
         //Show the elements
         description_Image.gameObject.SetActive(true);
         description_Title.gameObject.SetActive(true);
+        description_Text.gameObject.SetActive(true);
     }
 
     public void HideDescription()
     {
         description_Image.gameObject.SetActive(false);
         description_Title.gameObject.SetActive(false);
+        description_Text.gameObject.SetActive(false);
+    }
+
+    public void Consume(int id)
+    {
+        if(items[id].GetComponent<Item>().type== Item.ItemType.Consumables)
+        {
+            Debug.Log($"CONSUMED {items[id].name}");
+            //Invoke the cunsume custome event
+            items[id].GetComponent<Item>().consumeEvent.Invoke();
+            //Destroy the item in very tiny time
+            Destroy(items[id], 0.1f);
+            //Clear the item from the list
+            items.RemoveAt(id);
+            //Update UI
+            Update_UI();
+        }
     }
 }

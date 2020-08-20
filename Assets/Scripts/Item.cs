@@ -5,12 +5,17 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(BoxCollider2D))]
 public class Item : MonoBehaviour
-{
-    public enum InteractionType { NONE,PickUp,Examine}
-    public InteractionType type;
+{    
+    public enum InteractionType { NONE, PickUp, Examine }
+    public enum ItemType { Staic, Consumables}
+    [Header("Attributes")]
+    public InteractionType interactType;
+    public ItemType type;
     [Header("Exmaine")]
     public string descriptionText;
+    [Header("Custom Events")]
     public UnityEvent customEvent;
+    public UnityEvent consumeEvent;
 
     private void Reset()
     {
@@ -20,7 +25,7 @@ public class Item : MonoBehaviour
 
     public void Interact()
     {
-        switch(type)
+        switch(interactType)
         {
             case InteractionType.PickUp:
                 //Add the object to the PickedUpItems list
