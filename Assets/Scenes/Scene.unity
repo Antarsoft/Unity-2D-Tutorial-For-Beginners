@@ -3840,7 +3840,7 @@ MonoBehaviour:
   sfx_landing: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
   sfx_cherry: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
   music_tiktok: {fileID: 8300000, guid: c5e2a73ad4706440f93bf05df0b465fe, type: 3}
-  music_bobo: {fileID: 0}
+  music_bobo: {fileID: 8300000, guid: df729d213c4be44a9b55cd109f5cd4f9, type: 3}
   currentMusicObject: {fileID: 0}
   soundObject: {fileID: 7308754056625744396, guid: 8f2f94277ef42404db59afb26979ed1c,
     type: 3}
