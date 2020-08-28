@@ -6,16 +6,16 @@ public class Fox : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator animator;
-    [SerializeField] Collider2D standingCollider;
-    [SerializeField] Transform groundCheckCollider;
-    [SerializeField] Transform overheadCheckCollider;
-    [SerializeField] LayerMask groundLayer;
+    public Collider2D standingCollider;
+    public Transform groundCheckCollider;
+    public Transform overheadCheckCollider;
+    public LayerMask groundLayer;
 
     const float groundCheckRadius = 0.2f;
     const float overheadCheckRadius = 0.2f;
     [SerializeField] float speed = 2;
     [SerializeField] float jumpPower =500;
-    [SerializeField] int totalJumps;
+    public int totalJumps;
     int availableJumps;
     float horizontalValue;
     float runSpeedModifier = 2f;
@@ -107,6 +107,8 @@ public class Fox : MonoBehaviour
             {
                 availableJumps = totalJumps;
                 multipleJump = false;
+
+                AudioManager.instance.PlaySFX("landing");
             }                
         }    
         else
