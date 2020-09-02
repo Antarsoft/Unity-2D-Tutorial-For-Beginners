@@ -21,7 +21,7 @@ public class Fox : MonoBehaviour
     float runSpeedModifier = 2f;
     float crouchSpeedModifier = 0.5f;
     
-    bool isGrounded;    
+    bool isGrounded=true;    
     bool isRunning;
     bool facingRight = true;
     bool crouchPressed;
