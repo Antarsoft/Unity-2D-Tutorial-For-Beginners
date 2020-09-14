@@ -6,7 +6,7 @@ public class Fox : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator animator;
-    public Collider2D standingCollider;
+    public Collider2D standingCollider,crouchingCollider;
     public Transform groundCheckCollider;
     public Transform overheadCheckCollider;
     public LayerMask groundLayer;
@@ -177,6 +177,7 @@ public class Fox : MonoBehaviour
 
         animator.SetBool("Crouch", crouchFlag);
         standingCollider.enabled = !crouchFlag;
+        crouchingCollider.enabled = crouchFlag;
 
         #endregion
 
@@ -212,7 +213,5 @@ public class Fox : MonoBehaviour
         //of the RigidBody2D velocity 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
         #endregion
-    }
-
-    
+    }    
 }
