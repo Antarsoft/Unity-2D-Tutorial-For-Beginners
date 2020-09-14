@@ -27,7 +27,7 @@ public class LifeCount : MonoBehaviour
         //If we run out of lives we lose the game
         if(livesRemaining==0)
         {
-            Debug.Log("YOU LOST");
+            FindObjectOfType<Fox>().Die();            
         }
     }
 

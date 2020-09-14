@@ -21,7 +21,7 @@ public class HealthBar : MonoBehaviour
         //Check if your health is zero or less => Dead
         if(health<=0)
         {
-            Debug.Log("YOU DIED");
+            FindObjectOfType<Fox>().Die();
         }
     }
     private void Update()

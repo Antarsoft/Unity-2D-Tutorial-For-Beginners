@@ -27,6 +27,7 @@ public class Fox : MonoBehaviour
     bool crouchPressed;
     bool multipleJump;
     bool coyoteJump;
+    bool isDead = false;
 
     void Awake()
     {
@@ -38,7 +39,7 @@ public class Fox : MonoBehaviour
 
     void Update()
     {
-        if (CanMove()==false)
+        if (CanMoveOrInteract()==false)
             return;
 
         //Store the horizontal value
@@ -80,13 +81,15 @@ public class Fox : MonoBehaviour
         Gizmos.DrawSphere(overheadCheckCollider.position, overheadCheckRadius);
     }
 
-    bool CanMove()
+    bool CanMoveOrInteract()
     {
         bool can = true;
 
         if (FindObjectOfType<InteractionSystem>().isExamining)
             can = false;
         if (FindObjectOfType<InventorySystem>().isOpen)
+            can = false;
+        if (isDead)
             can = false;
 
         return can;
@@ -213,5 +216,17 @@ public class Fox : MonoBehaviour
         //of the RigidBody2D velocity 
         animator.SetFloat("xVelocity", Mathf.Abs(rb.velocity.x));
         #endregion
-    }    
+    }   
+    
+    public void Die()
+    {
+        isDead = true;
+        FindObjectOfType<LevelManager>().Restart();
+    }
+
+    public void ResetPlayer()
+    {
+        isDead = false;
+    }
+    
 }

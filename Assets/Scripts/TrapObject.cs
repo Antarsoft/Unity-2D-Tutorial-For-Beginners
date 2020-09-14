@@ -12,7 +12,7 @@ public class TrapObject : MonoBehaviour
     {
         if(collision.tag=="Player")
         {
-            Debug.Log($"{name} Triggered");
+            FindObjectOfType<LifeCount>().LoseLife();
         }
     }
 }
