@@ -414,6 +414,36 @@ Transform:
   m_Father: {fileID: 406750694}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &304300505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 304300506}
+  m_Layer: 0
+  m_Name: ShootingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &304300506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304300505}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1, y: -0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1932231517}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &406750693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,6 +1827,7 @@ GameObject:
   - component: {fileID: 1468266384}
   - component: {fileID: 1468266383}
   - component: {fileID: 1468266382}
+  - component: {fileID: 1468266387}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -1925,6 +1956,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468266387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468266381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a805c2480fde1042a7ce1906be34a39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1468266381}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1514963850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2737,6 +2794,7 @@ GameObject:
   - component: {fileID: 1932231521}
   - component: {fileID: 1932231526}
   - component: {fileID: 1932231525}
+  - component: {fileID: 1932231527}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Player
@@ -2809,6 +2867,7 @@ Transform:
   - {fileID: 115327064}
   - {fileID: 1788464033}
   - {fileID: 899447483}
+  - {fileID: 304300506}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2990,6 +3049,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fillBar: {fileID: 826001817}
   health: 100
+--- !u!114 &1932231527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932231515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57fa5349b0acd04c947f62c7939ad05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingItem: {fileID: 1260487311199724885, guid: 98103bb2030c24d4ca382bc1d7811081,
+    type: 3}
+  shootingPoint: {fileID: 304300506}
+  canShoot: 1
 --- !u!1 &1967423833
 GameObject:
   m_ObjectHideFlags: 0
