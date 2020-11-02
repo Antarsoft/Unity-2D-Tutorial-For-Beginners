@@ -10,11 +10,15 @@ public class Fox : MonoBehaviour
     public Transform groundCheckCollider;
     public Transform overheadCheckCollider;
     public LayerMask groundLayer;
+    public Transform wallCheckCollider;
+    public LayerMask wallLayer;
 
     const float groundCheckRadius = 0.2f;
     const float overheadCheckRadius = 0.2f;
+    const float wallCheckRadius = 0.2f;
     [SerializeField] float speed = 2;
     [SerializeField] float jumpPower =500;
+    [SerializeField] float slideFactor = 0.2f;
     public int totalJumps;
     int availableJumps;
     float horizontalValue;
@@ -27,6 +31,7 @@ public class Fox : MonoBehaviour
     bool crouchPressed;
     bool multipleJump;
     bool coyoteJump;
+    bool isSliding;
     bool isDead = false;
 
     void Awake()
@@ -65,6 +70,9 @@ public class Fox : MonoBehaviour
 
         //Set the yVelocity Value
         animator.SetFloat("yVelocity", rb.velocity.y);
+
+        //Check if we are touching a wall to slide on it
+        WallCheck();
     }
 
     void FixedUpdate()
@@ -123,6 +131,43 @@ public class Fox : MonoBehaviour
         //As long as we are grounded the "Jump" bool
         //in the animator is disabled
         animator.SetBool("Jump", !isGrounded);
+    }
+
+    void WallCheck()
+    {
+        //If we are touching a wall
+        //and we are moving towards the wall
+        //and we are falling
+        //and we are not grounded
+        //Slide on the wall
+        if (Physics2D.OverlapCircle(wallCheckCollider.position, wallCheckRadius, wallLayer)
+            && Mathf.Abs(horizontalValue) > 0
+            && rb.velocity.y < 0
+            && !isGrounded)
+        {
+            if(!isSliding)
+            {
+                availableJumps = totalJumps;
+                multipleJump = false;
+            }
+
+            Vector2 v = rb.velocity;
+            v.y = -slideFactor;
+            rb.velocity = v;
+            isSliding = true;
+
+            if(Input.GetButtonDown("Jump"))
+            {
+                availableJumps--;
+
+                rb.velocity = Vector2.up * jumpPower;
+                animator.SetBool("Jump", true);
+            }
+        }
+        else
+        {
+            isSliding = false;
+        }
     }
 
     #region Jump
