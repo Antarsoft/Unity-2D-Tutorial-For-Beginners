@@ -4,6 +4,9 @@ Welcome to the Unity 2D Tutorial for beginners
 In this repo you'll find the updated source code for the Tutorial Video Series:
 https://www.youtube.com/playlist?list=PLjAb99vXJuCRD04EUp8p2az1ILZbq_ZfY
 
+Support me on Patreon:
+https://www.patreon.com/antarsoftgames
+
 For any suggestions or questions please join our discord channel
 www.discord.gg/zcZTAQq
 
