@@ -120,10 +120,21 @@ public class Fox : MonoBehaviour
                 multipleJump = false;
 
                 AudioManager.instance.PlaySFX("landing");
-            }                
+            }        
+            
+            //Check if any of the colliders is moving platform
+            //Parent it to this transform
+            foreach(var c in colliders)
+            {
+                if (c.tag == "MovingPlatform")
+                    transform.parent = c.transform;
+            }
         }    
         else
         {
+            //Un-parent the transform
+            transform.parent = null;
+
             if (wasGrounded)
                 StartCoroutine(CoyoteJumpDelay());
         }
