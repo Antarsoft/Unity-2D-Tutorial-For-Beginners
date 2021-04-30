@@ -119,7 +119,7 @@ public class Fox : MonoBehaviour
                 availableJumps = totalJumps;
                 multipleJump = false;
 
-                AudioManager.instance.PlaySFX("landing");
+                //AudioManager.instance.PlaySFX("landing");
             }        
             
             //Check if any of the colliders is moving platform
